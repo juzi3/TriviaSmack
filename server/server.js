@@ -3,18 +3,23 @@ const express = require('express');
 
 const app = express();
 
-const apiRouter = require('./routes/api');
+const playRouter = require('./routes/api');
 
 const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded());
 
+
 // handle reqs for static files
 app.use(express.static(path.resolve(__dirname, '../client')));
 
+app.use('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/src/index.html'));
+});
+
 // route handlers
-app.use('/api', apiRouter);
+app.use('/play', playRouter);
 
 // 404 handler
 app.use('*', (req, res) => res.status(404).send('Not Found'));

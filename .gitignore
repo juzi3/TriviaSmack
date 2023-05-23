@@ -1,5 +1,3 @@
-# dependencies
 node_modules/
-
-# output from webpack
 dist/
+npm-debug.log
