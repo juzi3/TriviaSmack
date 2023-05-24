@@ -8,21 +8,23 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'client/dist'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/',
+    clean: true,
   },
 
   mode: 'development',
   devServer: {
     host: 'localhost',
-    port: 8080,
+    port: 3000,
     // enable HMR on the devServer
     hot: true,
     // fallback to root for other urls
-    // historyApiFallback: true,
+    historyApiFallback: true,
+    compress: true,
 
     static: {
       // match the output path
-      directory: path.resolve(__dirname, 'dist'),
+      directory: path.resolve(__dirname, 'client/dist'),
       // match the output 'publicPath'
       publicPath: '/',
     },
@@ -32,10 +34,10 @@ module.exports = {
         target: 'http://localhost:3000/',
         secure: false,
       },
-      '/': {
-        target: 'http://localhost:3000/',
-        secure: false,
-      },
+      // '/login': {
+      //   target: 'http://localhost:3000/',
+      //   secure: false,
+      // },
     },
   },
 

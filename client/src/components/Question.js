@@ -14,13 +14,13 @@ const Question = ({details, questionNum, categoryHandler}) => {
   //   );
   // }
 
-  if (questionNum > 10) {
-    categoryHandler(null);
-  }
+  // if (questionNum > 10) {
+  //   categoryHandler(null);
+  // }
   const {question} = details[questionNum];
   return (
     <div id='question'>
-      <h2>{question.text}</h2>
+      <h2 id='question-heading'>{question.text}</h2>
     </div>
   );
 

@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 
 const playRouter = require('./routes/api');
+const triviaController = require('./controllers/triviaController');
 
 const PORT = 3000;
 
@@ -20,6 +21,12 @@ app.use('/', (req, res) => {
 
 // route handlers
 app.use('/play', playRouter);
+
+// handle signup
+app.post('./signup', triviaController.createUser);
+
+// handle login
+app.post('./login', triviaController.verifyUser);
 
 // 404 handler
 app.use('*', (req, res) => res.status(404).send('Not Found'));

@@ -34,9 +34,17 @@ const scoreSchema = new Schema({
 
 const Score = mongoose.model('score', scoreSchema);
 
+const userSchema = new Schema({
+  username: {type: String, required: true, unique: true},
+  password: {type: String, required: true}
+});
+
+const User = mongoose.model('user', userSchema);
+
 
 // exports all the models in an object to be used in the controller
 module.exports = {
   Question,
-  Score
+  Score,
+  User
 };
