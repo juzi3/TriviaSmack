@@ -7,6 +7,10 @@ body {
   padding: 0;
 }
 
+#game-title {
+  transition: all ease-in-out(.2s);
+}
+
 main > div {
   display: flex;
   flex-direction: column;
@@ -14,22 +18,29 @@ main > div {
   align-items: center;
 }
 
+#Score-display {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
 #category-display {
   display: flex;
   align-items: center;
   flex-flow: column wrap;
-  max-width: 600px;
-  padding: 1rem;
+  max-width: 800px;
+  padding: 2rem 3rem;
   background: rgb(14, 158, 219);
 }
 
 .category {
   border: solid 1px black;
-  flex: 0 1 150px;
+  flex: 0 1 200px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: .5rem;
+  box-shadow: .1rem .1rem .2rem  .1rem rgba(0, 0, 0, .3), -.1rem .1rem .2rem  .1rem rgba(0, 0, 0, .3);
   transition: scale ease-in-out(.2s);
 }
 
@@ -37,22 +48,27 @@ main > div {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
-.category-btn {
-  background: none;
-  outline: none;
-  border: none;
-  padding: 1rem;
-}
-
-.category-btn:hover {
-  cursor: pointer;
+.category-heading {
+  padding: 1.5rem 0;
 }
 
 .category:hover {
-  cursor: pointer;
-  box-shadow: .25rem .25rem .2rem  .1rem rgba(0, 0, 0, .5);
+  box-shadow: .25rem .25rem .2rem  .1rem rgba(0, 0, 0, .3), -.25rem .25rem .2rem  .1rem rgba(0, 0, 0, .3);
   transform: scale(1.1);
 }
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+#in-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+}
+
+

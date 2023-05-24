@@ -3,11 +3,12 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
-  entry: './client/src/index.js',
+  entry: path.resolve(__dirname, 'client/src/index.js'),
 
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, 'client/dist'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
 
   mode: 'development',
@@ -17,7 +18,7 @@ module.exports = {
     // enable HMR on the devServer
     hot: true,
     // fallback to root for other urls
-    historyApiFallback: true,
+    // historyApiFallback: true,
 
     static: {
       // match the output path
@@ -25,16 +26,9 @@ module.exports = {
       // match the output 'publicPath'
       publicPath: '/',
     },
-
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    /**
-     * proxy is required in order to make api calls to
-     * express server while using hot-reload webpack server
-     * routes api fetch requests from localhost:8080/api/* (webpack dev server)
-     * to localhost:3000/api/* (where our Express server is running)
-     */
+    
     proxy: {
-      '/play/**': {
+      '/play': {
         target: 'http://localhost:3000/',
         secure: false,
       },
@@ -47,7 +41,7 @@ module.exports = {
 
   plugins: [
     new HTMLWebpackPlugin({
-      template: './client/src/index.html'
+      template: './client/index.html'
     })
   ],
 

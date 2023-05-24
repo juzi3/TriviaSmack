@@ -10,12 +10,12 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded());
 
-
 // handle reqs for static files
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 app.use('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/src/index.html'));
+  console.log('served index.html');
+  return res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
 });
 
 // route handlers
