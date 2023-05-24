@@ -9,40 +9,39 @@ import Play from './Play';
 
 const Home = () => {
 
-  const [category, setCategory] = useState(null);
-  const [question, setQuestion] = useState({});
-  const [questionNum, setQuestionNum] = useState(0);
-  const [details, setDetails] = useState({});
-  const [score, setScore] = useState(0);
-  const [clickedPlay, setPlay] = useState(false);
-  // console.log(category, 'above useEffect');
+  // const [category, setCategory] = useState(null);
+  // const [question, setQuestion] = useState({});
+  // const [questionNum, setQuestionNum] = useState(0);
+  // const [details, setDetails] = useState({});
+  // const [score, setScore] = useState(0);
+  // const [clickedPlay, setPlay] = useState(false);
+  // // console.log(category, 'above useEffect');
 
-  const reset = () => {
-    setCategory(null);
-    setScore(0);
-    setQuestion({});
-    setQuestionNum(0);
-  };
+  // const reset = () => {
+  //   setCategory(null);
+  //   setScore(0);
+  //   setQuestion({});
+  //   setQuestionNum(0);
+  // };
 
-  useEffect(() => {
-    // using api, might need new api
-    setQuestionNum(0);
-    fetch('https://the-trivia-api.com/v2/questions')
-      .then(res => res.json())
-      .then(data => {
-        // setDetails(data);
-        // for (const d of data) {
-        //   console.log(d, 'in if')
-        //   if (d.category === category) {
-        //     setQuestion(d);
-        //     console.log(question);
-        //   }
-        // }
-        setQuestion(data);
-      })
-      .catch(err => console.log('Error in app: fetch to api', err));
-    // setQuestion(sportsData);
-  }, [clickedPlay, category]);
+  // useEffect(() => {
+  //   // using api, might need new api
+  //   setQuestionNum(0);
+  //   fetch('https://the-trivia-api.com/v2/questions')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       // setDetails(data);
+  //       // for (const d of data) {
+  //       //   console.log(d, 'in if')
+  //       //   if (d.category === category) {
+  //       //     setQuestion(d);
+  //       //     console.log(question);
+  //       //   }
+  //       // }
+  //       setQuestion(data);
+  //     })
+  //     .catch(err => console.log('Error in app: fetch to api', err));
+  // }, [clickedPlay, category]);
 
   // let display;
 
@@ -88,14 +87,14 @@ const Home = () => {
   //     );
 
   //   }
-  //   // if category if null and play button has been clicked then go to choose category
-  //   // } else {
+  // if category if null and play button has been clicked then go to choose category
+  // } else {
       
-  //   // display = (
-  //   //   <CategoryDisplay clickHandler={setCategory} />
-  //   // );
-  //   // }
-  //   // if play button hasn't been clicked then display is just play button
+  // display = (
+  //   <CategoryDisplay clickHandler={setCategory} />
+  // );
+  // }
+  // if play button hasn't been clicked then display is just play button
   // } else {
   //   display = (
 
@@ -104,6 +103,17 @@ const Home = () => {
   //   );
   // }
   // {display}
+
+  // const data = {score: score,
+  //   scoreHandler: setScore,
+  //   details: question,
+  //   questionNum: questionNum,
+  //   questionNumHandler: setQuestionNum,
+  //   category: category,
+  //   categoryHandler: setCategory,
+  //   clickedPlay: clickedPlay,
+  //   playHandler: setPlay,
+  //   reset: reset};
   
   return (
     <div id='home-page'>
@@ -120,37 +130,15 @@ const Home = () => {
         </Link>
       </div>
 
-      <Routes>
-        <Route path='/play' element={<Play 
-          score={score}
-          scoreHandler={setScore}
-          details={question}
-          questionNum={questionNum}
-          questionNumHandler={setQuestionNum}
-          category={category}
-          categoryHandler={setCategory}
-          clickedPlay={clickedPlay}
-          playHandler={setPlay}
-          reset={reset}
-        />} />
-      </Routes>
+      {/* <Routes>
+        <Route path='/play' element={<Play />} />
+      </Routes> */}
     </div>
+    
   );
-  
+    
 };
-
-
+  
+  
 export default Home;
-
-// {/* <Play 
-//   score={score}
-//   scoreHandler={setScore}
-//   details={question}
-//   questionNum={questionNum}
-//   questionNumHandler={setQuestionNum}
-//   category={category}
-//   categoryHandler={setCategory}
-//   clickedPlay={clickedPlay}
-//   playHandler={setPlay}
-//   reset={reset}
-// /> */}
+  
