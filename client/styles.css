@@ -22,7 +22,7 @@ body {
 /* ---------------------------------------- NAVBAR ---------------------------------------- */
 nav {
   max-height: 50px;
-  background-color: var(--primary-light-color);
+  background-color: var(--secondary-color);
 }
 
 ul {
@@ -39,13 +39,13 @@ nav > ul > div > li > a, nav > ul > div > a > h1 {
   align-items: center;
 }
 
-a, h2:not(#question-heading) {
-  color: var(--primary-color);
+a, h2:not(#question-heading, #play-again > div > h2) {
+  color: var(--secondary-light-color);
   transition: all ease-in-out .2s
 }
 
-a:hover, h2:not(#question-heading):hover {
-  color: var(--secondary-light-color);
+a:not(span > a):hover, h2:not(#question-heading, #play-again > div > h2):hover {
+  color: var(--primary-color);
 }
 
 #right-nav, #left-nav {
@@ -54,9 +54,24 @@ a:hover, h2:not(#question-heading):hover {
   width: 150px;
 }
 
-#right-nav > li > a {
+#right-nav > li:first-of-type > a {
   background-color: var(--secondary-light-color);
-  color: var(--primary-light-color);
+  color: var(--primary-color);
+  border-radius: .5rem;
+  height: 20px;
+  padding: .25rem;
+  display: flex;
+  align-items: center;
+}
+
+/* #right-nav > li:first-of-type:hover > a {
+  color: var(--secondary-light-color);
+  background-color: var(--primary-color);
+} */
+
+#right-nav > li:last-of-type > a {
+  color: var(--secondary-light-color);
+  background-color: var(--primary-color);
   border-radius: .5rem;
   height: 20px;
   padding: .25rem;
@@ -65,8 +80,10 @@ a:hover, h2:not(#question-heading):hover {
 }
 
 #right-nav > li:hover > a {
-  color: var(--secondary-light-color);
-  background-color: var(--primary-color);
+  /* background-color: var(--secondary-light-color);
+  color: var(--primary-color); */
+  opacity: .75;
+  transform: scale(1.1);
 }
 
 #right-nav > li {
@@ -77,8 +94,6 @@ a:hover, h2:not(#question-heading):hover {
 a {
   text-decoration: none;
 }
-
-/* ---------------------------------------- MAIN PAGE ---------------------------------------- */
 
 #game-title {
   transition: color ease-in-out .2s;
@@ -100,17 +115,69 @@ a {
   100% {transform: rotate(0deg);}
 }
 
+/* ---------------------------------------- MAIN PAGE ---------------------------------------- */
+
 #home-page {
   display: flex;
-  max-height: 500px;
+  max-height: 200px;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#home-page > h1 {
+  margin: 0;
+  font-size: 5rem;
+}
+
+#home-page > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 250px;
+  gap: 1rem;
+}
+
+#home-page > div > a {
+  width: 200px;
+  background-color: var(--primary-light-color);
+  display: flex;
+  justify-content: center;
+  border-radius: .5rem;
+  box-shadow: inset 0rem -.5rem 0rem  0rem rgba(0, 0, 0, .25);
+  transition: all ease-in .1s;
+}
+
+#home-page > div > a:first-of-type:hover {
+  transform: translateY(5px);
+  box-shadow: none;
+}
+
+#home-page > div > a:last-of-type:hover {
+  transform: translateY(5px);
+  box-shadow: none;
+}
+
+.enter-heading {
+  color: var(--primary-color) !important;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+#enter, #or {
+  color: var(--primary-color);
 }
 
 #play-again {
   display: flex;
   flex-direction: column;
-  flex: 0;
   align-items: center;
+  height: 300px;
+}
+
+#play-again > div > h2:hover {
+  color: var(--primary-light-color);
 }
 
 #play {
@@ -149,6 +216,7 @@ main > div {
   justify-content: space-around;
   flex: 1 0;
   font-size: 1.5rem;
+  max-height: 100px;
 }
 
 /* #category-display {
@@ -208,6 +276,43 @@ main > div {
 
 #question-heading {
   margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#question {
+  height: 100px;
+  width: 800px;
+}
+
+.answer {
+  min-height: 50px;
+  width: 400px;
+  overflow-wrap: normal;
+}
+
+.answer:hover {
+  background-color: var(--secondary-light-color)
+}
+
+h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: shrink;
+}
+
+#login-container, #signup-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--secondary-color);
+  height: 450px;
+  padding: 1rem;
+  border-radius: .5rem;
 }
 
 form {
@@ -232,7 +337,7 @@ form > input {
   border-radius: .5rem;
   outline: none;
   border: none;
-  background-color: var(--secondary-color);
+  background-color: var(--primary-light-color);
   color: var(--secondary-light-color);
   font-size: 1.25rem;
   transition: background-color ease-in-out .2s;
@@ -244,7 +349,7 @@ form > input {
 
 span {
   margin-top: 2rem;
-  color: var(--secondary-color);
+  color: var(--secondary-light-color);
   max-height: 50px;
 }
 

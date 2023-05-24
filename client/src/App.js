@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 
 import '../styles.css';
-// import Play from './components/Play';
+import Play from './components/Play';
 // import CategoryDisplay from './components/CategoryDisplay';
 // import ScoreDisplay from './components/ScoreDisplay';
 // import Question from './components/Question';
@@ -211,6 +211,7 @@ const App = () => {
 
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/play' element={<Play />} />
           <Route path='/leaderboard' element={<LeaderBoard />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />

@@ -4,7 +4,7 @@ const LeaderBoard = () => {
 
   return (
     <h1>Leaderboard</h1>
-  )
+  );
 
 };
 

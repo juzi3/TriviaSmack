@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 
 import Play from './Play';
-import CategoryDisplay from './CategoryDisplay';
-import ScoreDisplay from './ScoreDisplay';
-import Question from './Question';
-import AnswersContainer from '../containers/AnswersContainer';
+
+// import CategoryDisplay from './CategoryDisplay';
+// import ScoreDisplay from './ScoreDisplay';
+// import AnswersContainer from '../containers/AnswersContainer';
 
 const Home = () => {
 
@@ -22,7 +22,6 @@ const Home = () => {
     setScore(0);
     setQuestion({});
     setQuestionNum(0);
-    return;
   };
 
   useEffect(() => {
@@ -43,149 +42,115 @@ const Home = () => {
       })
       .catch(err => console.log('Error in app: fetch to api', err));
     // setQuestion(sportsData);
-  }, [clickedPlay, ]);
+  }, [clickedPlay, category]);
 
-  console.log('under useEffect', question);
+  // let display;
 
-  let display;
-  // switch(category) {
-  // case 'science' :
-  //   display = (
-  //     <div>
-  //       <Question question={question} changer={setQuestion} />
-  //       <AnswersContainer details={question} />
-  //     </div>
-  //   );
-  //   break;
-  // case 'film_and_tv' :
-  //   display = (
-  //     <div>
-  //       <Question question={question} />
-  //       <AnswersContainer details={question} />
-  //     </div>
-  //   );
-  //   break;
-  // case 'music' :
-  //   display = (
-  //     <div>
-  //       <Question question={question} />
-  //       <AnswersContainer details={question} />
-  //     </div>
-  //   );
-  //   break;
-  // case 'history' :
-  //   display = (
-  //     <div>
-  //       <Question question={question} />
-  //       <AnswersContainer details={question} />
-  //     </div>
-  //   );
-  //   break;
-  // case 'sports_and_leisure' :
-  //   display = (
-  //     <div>
-  //       <Question question={question} />
-  //       <AnswersContainer details={question} />
-  //     </div>
-  //   );
-  //   break;
-  // case 'arts_and_literature' :
-  //   display = (
-  //     <div>
-  //       <Question question={question} />
-  //       <AnswersContainer details={question} />
-  //     </div>
-  //   );
-  //   display = (
-  //     <div>
-  //       <Question question={question} />
-  //       <AnswersContainer details={question} />
-  //     </div>
-  //   );
-  //   break;
-  // case 'food_and_drink' :
-  //   display = (
-  //     <div>
-  //       <Question question={question} />
-  //       <AnswersContainer details={question} />
-  //     </div>
-  //   );
-  //   break;
-  // case 'general_knowledge' :
-  //   display = (
-  //     <div>
-  //       <Question question={question} />
-  //       <AnswersContainer details={question} />
-  //     </div>
-  //   );
-  //   break;
-  // case 'society_and_culture' :
-  //   display = (
-  //     <div>
-  //       <Question question={question} />
-  //       <AnswersContainer details={question} />
-  //     </div>
-  //   );
-  //   break;
+  // // checks if play button clicked
+  // if (clickedPlay) {
+  //   // if clicked checks if category has been picked yet, if category isn't null, game begins
+  //   // if (category !== null) {
+  //   // checks if current question is the last one. If isn't then goes to next question
+  //   if (questionNum < 10) {
+  //     display = (
+  //       <div id="in-game-container">
+  //         <ScoreDisplay value={score} />
+  //         <Question details={question} questionNum={questionNum} categoryHandler={setCategory} />
+  //         <AnswersContainer details={question} questionNum={questionNum} questionNumHandler={setQuestionNum} score={score} scoreHandler={setScore} />
+  //       </div>
+  //     );
+  //     // when no more q's, asks if you want to play again
+  //   } else {
 
-  // checks if play button clicked
-  if (clickedPlay) {
-    // if clicked checks if category has been picked yet, if category isn't null, game begins
-    // if (category !== null) {
-    // checks if current question is the last one. If isn't then goes to next question
-    if (questionNum < 10) {
-      display = (
-        <div id="in-game-container">
-          <ScoreDisplay value={score} />
-          <Question details={question} questionNum={questionNum} categoryHandler={setCategory} />
-          <AnswersContainer details={question} questionNum={questionNum} questionNumHandler={setQuestionNum} score={score} scoreHandler={setScore} />
-        </div>
-      );
-      // when no more q's, asks if you want to play again
-    } else {
-
-      display = (
-        <div id="play-again">
+  //     display = (
+  //       <div id="play-again">
   
-          <h1>Final Score: {score}</h1>
-          <div id="again-btn" className="pointer" onClick={() => reset()}>
-            <h2>Play Again?</h2>
-          </div>
+  //         <h1>Final Score: {score}</h1>
+  //         <div id="again-btn" onClick={() => {
+  //           reset();
+  //           if (category) {
+  //             setCategory(null);
+  //           } else {
+  //             setCategory('not null');
+  //           }
+  //         }}>
+  //           <h2 className="pointer">Play Again?</h2>
+  //         </div>
   
-          <div id="again-btn" className="pointer" onClick={() => {
-            reset();
-            setPlay(false);
-          }}>
-            <h2>No!</h2>
-          </div>
+  //         <div id="again-btn" onClick={() => {
+  //           reset();
+  //           setPlay(false);
+  //         }}>
+  //           <h2 className="pointer">No!</h2>
+  //         </div>
   
-        </div>
-      );
+  //       </div>
+  //     );
 
-    }
-    // if category if null and play button has been clicked then go to choose category
-    // } else {
+  //   }
+  //   // if category if null and play button has been clicked then go to choose category
+  //   // } else {
       
-    // display = (
-    //   <CategoryDisplay clickHandler={setCategory} />
-    // );
-    // }
-    // if play button hasn't been clicked then display is just play button
-  } else {
-    display = (
+  //   // display = (
+  //   //   <CategoryDisplay clickHandler={setCategory} />
+  //   // );
+  //   // }
+  //   // if play button hasn't been clicked then display is just play button
+  // } else {
+  //   display = (
 
-      <Play clickHandler={setPlay}/>
+  //     <Play clickHandler={setPlay}/>
       
-    );
-  }
-
+  //   );
+  // }
+  // {display}
+  
   return (
     <div id='home-page'>
-      {display}
+
+      <h1>Welcome</h1>
+
+      <div>
+        <Link to='/Login'>
+          <h2 className='enter-heading'>Login</h2>
+        </Link>
+        <span id='or'>Or</span>
+        <Link to='/play'>
+          <h2 className='enter-heading'>Play as Guest</h2>
+        </Link>
+      </div>
+
+      <Routes>
+        <Route path='/play' element={<Play 
+          score={score}
+          scoreHandler={setScore}
+          details={question}
+          questionNum={questionNum}
+          questionNumHandler={setQuestionNum}
+          category={category}
+          categoryHandler={setCategory}
+          clickedPlay={clickedPlay}
+          playHandler={setPlay}
+          reset={reset}
+        />} />
+      </Routes>
     </div>
   );
-
+  
 };
 
 
 export default Home;
+
+// {/* <Play 
+//   score={score}
+//   scoreHandler={setScore}
+//   details={question}
+//   questionNum={questionNum}
+//   questionNumHandler={setQuestionNum}
+//   category={category}
+//   categoryHandler={setCategory}
+//   clickedPlay={clickedPlay}
+//   playHandler={setPlay}
+//   reset={reset}
+// /> */}

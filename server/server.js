@@ -23,10 +23,10 @@ app.use('/', (req, res) => {
 app.use('/play', playRouter);
 
 // handle signup
-app.post('./signup', triviaController.createUser);
+app.post('/signup', triviaController.createUser);
 
 // handle login
-app.post('./login', triviaController.verifyUser);
+app.post('/login', triviaController.verifyUser);
 
 // 404 handler
 app.use('*', (req, res) => res.status(404).send('Not Found'));
