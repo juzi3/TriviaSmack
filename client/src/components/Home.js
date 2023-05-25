@@ -121,7 +121,7 @@ const Home = () => {
       <h1>Welcome</h1>
 
       <div>
-        <Link to='/Login'>
+        <Link to='/login'>
           <h2 className='enter-heading'>Login</h2>
         </Link>
         <span id='or'>Or</span>

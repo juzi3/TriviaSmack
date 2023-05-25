@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-const sportsData = require('../../data/sports.json');
-
 const ScoreDisplay = ({value}) => {
 
   return (

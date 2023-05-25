@@ -281,11 +281,41 @@ main > div {
   background-color: white;
 }
 
+#leaderboard {
+  display: flex;
+  flex-direction: column;
+  flex: 0 500px;
+  color: black;
+  width: 800px;
+}
+
+#leaderboard > header {
+  flex: 1;
+}
+
+#leaderboard > div > span{
+  color: black;
+}
+
+#leaderboard-col-title {
+  display: flex;
+  justify-content: space-around;
+  flex: 1;
+  max-height: 100px;
+}
+
+.leader-row {
+  display: flex;
+  justify-content: space-around;
+}
+
 #in-game-container {
   padding: 1rem;
   border-radius: .5rem;
   box-shadow: .1rem .1rem .2rem  .1rem rgba(0, 0, 0, .2), -.1rem .1rem .2rem  .1rem rgba(0, 0, 0, .2);
 }
+
+/* ---------------------------------------- QUESTIONS & ANSWERS ---------------------------------------- */
 
 #question-heading {
   margin: 0;
@@ -316,6 +346,8 @@ h3 {
   justify-content: center;
   overflow: shrink;
 }
+
+/* ----------------------------------------LOGIN & SIGNUP ---------------------------------------- */
 
 #login-container, #signup-container{
   display: flex;

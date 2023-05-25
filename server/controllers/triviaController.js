@@ -10,8 +10,11 @@ triviaController.verifyUser = async (req, res, next) => {
     if (!username || !password) return res.redirect('/signup');
 
     const foundUser = await User.findOne({username, password});
-    res.locals.user = foundUser;
-    return next();
+    if (foundUser) {
+      return next();
+    } else {
+      return res.redirect('/signup');
+    }
   } catch(err) {
     res.status(500);
     return next(err);
@@ -62,6 +65,41 @@ triviaController.getQuestions = async (req, res, next) => {
     return next();
   } catch(err) {
     return next({error: err});
+  }
+
+};
+
+triviaController.getScores = async (req, res, next) => {
+
+  try {
+    
+    const scoreFound = await Score.find({});
+    res.locals.scores = scoreFound[0];
+    return next();
+  } catch(err) {
+    return next({error: err});
+  }
+
+};
+
+triviaController.addScore = async (req, res, next) => {
+
+  try {
+
+    const { username, score } = req.body;
+
+    if (score !== null && score !== undefined) {
+      if (!username) {
+        Score.create({username: 'Guest', score});
+      }
+      Score.create({username , score});
+      return res.redirect('/leaderboard');
+    } else {
+      res.redirect('/play');
+    }
+
+  } catch(err) {
+    return next(err);
   }
 
 };

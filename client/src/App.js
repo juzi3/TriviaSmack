@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, Navigate } from 'react-router-dom';
 
 import '../styles.css';
 import Play from './components/Play';
@@ -11,8 +11,6 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import LeaderBoard from './components/LeaderBoard';
-
-const sportsData = require('../data/sports.json');
 
 const App = () => {
 
@@ -212,6 +210,7 @@ const App = () => {
           <Route path='/leaderboard' element={<LeaderBoard />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+          {/* <Route path='*' element={<Navigate to='/' />} /> */}
         </Routes>
       
       </div>
