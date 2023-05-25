@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Leader from './Leader';
 
 const LeaderBoard = () => {
 
-  const leaders = [];
+  const [leaders, setLeaders] = useState([]);
+
   // get list of scores from secret/scores
   useEffect(() => {
     fetch('../secret/scores', {
@@ -12,11 +13,31 @@ const LeaderBoard = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        
+        // for (const piece of data) {
+        //   const { username, score } = piece;
+        //   leaders.push([username, score]);
+
+        // }
+        // if (leaders.length < 5) {
+        //   while (leaders.length < 5) {
+        //     leaders.push([null, 0]);
+        //   }
+        // } else if (leaders.length >= 5) {
+        //   for (const leader of leaders) {
+        //     const [ username, score ] = leader;
+        //     if (username === null) {
+        //       leaders.splice(leaders.indexOf(leader), 1);
+        //     }
+        //   }
+        // }
+        data.sort((a, b) => b.score - a.score);
+        setLeaders(data);
+
       })
       .catch(err => console.log('Error in leaderboard fetch', err));
   }, []);
 
+      
   return (
 
     <section id='leaderboard'>
@@ -26,14 +47,12 @@ const LeaderBoard = () => {
         <span>Score</span>
         <span>Name</span>
       </div>
-      {/* {for (let i = 1; i < 6; i++) {
-
-      }} */}
-      <Leader />
-      <Leader />
-      <Leader />
-      <Leader />
-      <Leader />
+      <div id='leader-row-container'>
+        {leaders.slice(0, 5).map((leader, i) => {
+          const { username, score } = leader;
+          return <Leader key={i}  username={username} score={score} rank={i + 1} />;
+        })}
+      </div>
     </section>
 
   );

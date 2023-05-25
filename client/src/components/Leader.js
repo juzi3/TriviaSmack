@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Leader = () => {
+const Leader = ({ rank, username, score}) => {
 
   return (
     <div className='leader-row'>
-      <h3>1</h3>
-      <h3>000</h3>
-      <h3>Guest</h3>
+      <h3>{rank}</h3>
+      <h3>{score}</h3>
+      <h3>{username}</h3>
     </div>
   );
 

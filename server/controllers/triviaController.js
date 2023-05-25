@@ -74,7 +74,7 @@ triviaController.getScores = async (req, res, next) => {
   try {
     
     const scoreFound = await Score.find({});
-    res.locals.scores = scoreFound[0];
+    res.locals.scores = scoreFound;
     return next();
   } catch(err) {
     return next({error: err});
@@ -91,6 +91,7 @@ triviaController.addScore = async (req, res, next) => {
     if (score !== null && score !== undefined) {
       if (!username) {
         Score.create({username: 'Guest', score});
+        return next();
       }
       Score.create({username , score});
       return res.redirect('/leaderboard');

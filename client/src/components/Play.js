@@ -93,6 +93,11 @@ const Play = () => {
               <h2 className="pointer">No!</h2>
             </div>
           </Link>
+
+          <form method="POST" action='/leaderboard'>
+            <input className='submit-btn pointer' type='submit' value="Send Score!" />
+            <input name="score" type="text" value={score} style={ { color: 'white' } }></input>
+          </form>
   
         </div>
       );

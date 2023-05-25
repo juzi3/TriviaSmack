@@ -285,16 +285,25 @@ main > div {
   display: flex;
   flex-direction: column;
   flex: 0 500px;
-  color: black;
+  color: var(--primary-color);
   width: 800px;
+  padding: 1rem;
+  background-color: var(--primary-light-color);
+  opacity: .9;
+  border-radius: .5rem;
+  box-shadow: .1rem .1rem 3rem #b8fcf4, -.1rem .1rem 3rem #b8fcf4;
 }
 
 #leaderboard > header {
   flex: 1;
+  text-align: center;
+  font-size: 2rem;
+  border-bottom: solid 1px black;
+  font-family: 'Lucida Sans Typewriter';
 }
 
-#leaderboard > div > span{
-  color: black;
+#leaderboard span, #leaderboard h3{
+  font-family: 'Lucida Sans Typewriter';
 }
 
 #leaderboard-col-title {
@@ -302,11 +311,16 @@ main > div {
   justify-content: space-around;
   flex: 1;
   max-height: 100px;
+  font-size: 1.5rem;
+  color: var(--primary-color);
 }
 
 .leader-row {
   display: flex;
   justify-content: space-around;
+  border-top: solid 1px black;
+  flex: 1;
+  max-height: 79px;
 }
 
 #in-game-container {
