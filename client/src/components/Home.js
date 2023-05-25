@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import Play from './Play';
+// import Play from './Play';
 
 // import CategoryDisplay from './CategoryDisplay';
 // import ScoreDisplay from './ScoreDisplay';
@@ -130,9 +130,6 @@ const Home = () => {
         </Link>
       </div>
 
-      {/* <Routes>
-        <Route path='/play' element={<Play />} />
-      </Routes> */}
     </div>
     
   );

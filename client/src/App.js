@@ -206,9 +206,6 @@ const App = () => {
 
       <div>
 
-        {/* <Play />
-        {display} */}
-
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/play' element={<Play />} />

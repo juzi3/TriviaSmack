@@ -33,4 +33,14 @@ triviaController.createUser = (req, res, next) => {
 
 };
 
+triviaController.getQuestions = async (req, res, next) => {
+  Question.find({}, (err, questions) => {
+    if (err) return next('Error in getQuestions: ' + JSON.stringify(err));
+
+    res.locals.question = questions;
+    return next();
+  });
+
+};
+
 export default triviaController;
