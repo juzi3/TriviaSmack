@@ -5,12 +5,13 @@ const triviaController = {};
 // verify for login
 triviaController.verifyUser = async (req, res, next) => {
 
+  const { username, password } = req.body;
+  if (!username || !password) return res.redirect('/signup');
   try {
-    const { username, password } = req.body;
-    if (!username || !password) return res.redirect('/signup');
 
     const foundUser = await User.findOne({username, password});
     if (foundUser) {
+      res.locals.user = foundUser;
       return next();
     } else {
       return res.redirect('/signup');
@@ -30,8 +31,10 @@ triviaController.createUser = async (req, res, next) => {
     const { username, password } = req.body;
   
     if (username && password) {
-      User.create({username, password});
-      return res.redirect('/play');
+      const createdUser = await User.create({username, password});
+      res.locals.user = createdUser;
+      return next();
+      // return res.redirect('/play');
     } else {
       res.status(500);
       return next({error: 'Error when creating user'});

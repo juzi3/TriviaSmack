@@ -291,7 +291,7 @@ main > div {
   background-color: var(--primary-light-color);
   opacity: .9;
   border-radius: .5rem;
-  box-shadow: .1rem .1rem 3rem #b8fcf4, -.1rem .1rem 3rem #b8fcf4;
+  box-shadow: .1rem .1rem 3rem #b8fcf4, -.1rem .1rem 3rem #b8fcf4, .1rem .1rem .5rem #fff, -.1rem .1rem .5rem #fff;
 }
 
 #leaderboard > header {

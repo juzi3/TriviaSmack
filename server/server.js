@@ -7,6 +7,7 @@ const app = express();
 const playRouter = require('./routes/api');
 const userRouter = require('./routes/user');
 const triviaController = require('./controllers/triviaController');
+const cookieSessionController = require('./controllers/cookieSessionController');
 
 const PORT = 3000;
 
@@ -29,6 +30,8 @@ mongoose.connect(MONGO_URI, {
 // handle reqs for static files
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
+
+// shows current path in console
 const logger = (req, res, next) => {
   console.log(req.originalUrl);
   next();
@@ -46,14 +49,19 @@ app.use('/secret', userRouter);
 // handle signup
 app.route('/signup')
   .get((req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/dist/index.html')))
-  .post(triviaController.createUser, (req, res) => {
-    res.send('Hi');
-  });
+  .post(triviaController.createUser,
+    cookieSessionController.setCookie,
+    cookieSessionController.startSession,
+    (req, res) => {
+      res.status(200).redirect('/play');
+    });
   
 // handle login
 app.route('/login')
   .get((req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/dist/index.html')))
-  .post(triviaController.verifyUser, 
+  .post(triviaController.verifyUser,
+    cookieSessionController.setCookie,
+    cookieSessionController.startSession, 
     (req, res) => {
       res.status(200).redirect('/play');
     });

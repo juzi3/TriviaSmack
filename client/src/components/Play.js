@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Cookie from 'js-cookie';
 
 import ScoreDisplay from './ScoreDisplay';
 import Question from './Question';
@@ -96,6 +97,7 @@ const Play = () => {
 
           <form method="POST" action='/leaderboard'>
             <input className='submit-btn pointer' type='submit' value="Send Score!" />
+            <input name="username" type="text" value={Cookie.get('username')} style={ { color: 'white' } }></input>
             <input name="score" type="text" value={score} style={ { color: 'white' } }></input>
           </form>
   
