@@ -178,7 +178,7 @@ a {
   max-width: 800px;
   border-radius: .5rem;
   box-shadow: .1rem .1rem .2rem  .1rem rgba(0, 0, 0, .2), -.1rem .1rem .2rem  .1rem rgba(0, 0, 0, .2);
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
 }
 
 #play-again > h1 {
@@ -190,6 +190,11 @@ a {
 
 #play-again > div > h2:hover {
   color: var(--primary-light-color);
+}
+
+.hidden-input {
+  display: none;
+  z-index: -5;
 }
 
 #play {
@@ -304,6 +309,10 @@ main > div {
 
 #leaderboard span, #leaderboard h3{
   font-family: 'Lucida Sans Typewriter';
+}
+
+#leaderboard h3 {
+  flex: 1;
 }
 
 #leaderboard-col-title {

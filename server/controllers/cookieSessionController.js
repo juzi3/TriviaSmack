@@ -5,10 +5,9 @@ const cookieSessionController = {};
 cookieSessionController.setCookie = async (req, res, next) => {
 
   try {
-    console.log(res.locals.user, 'locals.user');
     const { id, username } = res.locals.user;
-    res.cookie('ssid', id);
-    res.cookie('username', username);
+    res.cookie('ssid', id, {httpOnly: true});
+    res.cookie('username', username, {httpOnly: true});
     return next();
   } catch(err) {
     return next(err);

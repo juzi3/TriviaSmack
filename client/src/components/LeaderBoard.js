@@ -12,24 +12,6 @@ const LeaderBoard = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-        // for (const piece of data) {
-        //   const { username, score } = piece;
-        //   leaders.push([username, score]);
-
-        // }
-        // if (leaders.length < 5) {
-        //   while (leaders.length < 5) {
-        //     leaders.push([null, 0]);
-        //   }
-        // } else if (leaders.length >= 5) {
-        //   for (const leader of leaders) {
-        //     const [ username, score ] = leader;
-        //     if (username === null) {
-        //       leaders.splice(leaders.indexOf(leader), 1);
-        //     }
-        //   }
-        // }
         data.sort((a, b) => b.score - a.score);
         setLeaders(data);
 

@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import { Route, Routes, Link, Navigate } from 'react-router-dom';
+import { Route, Routes, Link } from 'react-router-dom';
 
 import '../styles.css';
 import Play from './components/Play';
-// import CategoryDisplay from './components/CategoryDisplay';
-// import ScoreDisplay from './components/ScoreDisplay';
-// import Question from './components/Question';
-// import AnswersContainer from './containers/AnswersContainer';
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -31,146 +27,6 @@ const App = () => {
     setPlay(false);
     return;
   };
-
-  // useEffect(() => {
-  //   // using api, might need new api
-  //   setQuestionNum(0);
-  //   fetch('https://the-trivia-api.com/v2/questions')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       // setDetails(data);
-  //       // for (const d of data) {
-  //       //   console.log(d, 'in if')
-  //       //   if (d.category === category) {
-  //       //     setQuestion(d);
-  //       //     console.log(question);
-  //       //   }
-  //       // }
-  //       setQuestion(data);
-  //     })
-  //     .catch(err => console.log('Error in app: fetch to api', err));
-  //   // setQuestion(sportsData);
-  // }, [category]);
-
-  // console.log('under useEffect', question);
-
-  // let display;
-  // // switch(category) {
-  // // case 'science' :
-  // //   display = (
-  // //     <div>
-  // //       <Question question={question} changer={setQuestion} />
-  // //       <AnswersContainer details={question} />
-  // //     </div>
-  // //   );
-  // //   break;
-  // // case 'film_and_tv' :
-  // //   display = (
-  // //     <div>
-  // //       <Question question={question} />
-  // //       <AnswersContainer details={question} />
-  // //     </div>
-  // //   );
-  // //   break;
-  // // case 'music' :
-  // //   display = (
-  // //     <div>
-  // //       <Question question={question} />
-  // //       <AnswersContainer details={question} />
-  // //     </div>
-  // //   );
-  // //   break;
-  // // case 'history' :
-  // //   display = (
-  // //     <div>
-  // //       <Question question={question} />
-  // //       <AnswersContainer details={question} />
-  // //     </div>
-  // //   );
-  // //   break;
-  // // case 'sports_and_leisure' :
-  // //   display = (
-  // //     <div>
-  // //       <Question question={question} />
-  // //       <AnswersContainer details={question} />
-  // //     </div>
-  // //   );
-  // //   break;
-  // // case 'arts_and_literature' :
-  // //   display = (
-  // //     <div>
-  // //       <Question question={question} />
-  // //       <AnswersContainer details={question} />
-  // //     </div>
-  // //   );
-  // //   display = (
-  // //     <div>
-  // //       <Question question={question} />
-  // //       <AnswersContainer details={question} />
-  // //     </div>
-  // //   );
-  // //   break;
-  // // case 'food_and_drink' :
-  // //   display = (
-  // //     <div>
-  // //       <Question question={question} />
-  // //       <AnswersContainer details={question} />
-  // //     </div>
-  // //   );
-  // //   break;
-  // // case 'general_knowledge' :
-  // //   display = (
-  // //     <div>
-  // //       <Question question={question} />
-  // //       <AnswersContainer details={question} />
-  // //     </div>
-  // //   );
-  // //   break;
-  // // case 'society_and_culture' :
-  // //   display = (
-  // //     <div>
-  // //       <Question question={question} />
-  // //       <AnswersContainer details={question} />
-  // //     </div>
-  // //   );
-  // //   break;
-  // if (category !== null) {
-  //   if (questionNum < 10) {
-  //     display = (
-  //       <div id="in-game-container">
-  //         <ScoreDisplay value={score} />
-  //         <Question details={question} questionNum={questionNum} categoryHandler={setCategory} />
-  //         <AnswersContainer details={question} questionNum={questionNum} questionNumHandler={setQuestionNum} score={score} scoreHandler={setScore} />
-  //       </div>
-  //     );
-  //   } else {
-  //     display = (
-  //       <div id="play-again">
-
-  //         <h1>Final Score: {score}</h1>
-  //         <div id="again-btn" className="pointer" onClick={() => reset()}>
-  //           <h2>Play Again?</h2>
-  //         </div>
-
-  //         <div id="again-btn" className="pointer">
-  //           <h2>No!</h2>
-  //         </div>
-
-  //       </div>
-  //     );
-  //   }
-  // } else {
-    
-  //   display = (
-  //     <CategoryDisplay clickHandler={setCategory} />
-  //   );
-  // }
-  // // default:
-  // //   display = (
-  // //     <CategoryDisplay clickHandler={setCategory} />
-  // //   );
-  // // }
-
 
   return (
     
@@ -210,7 +66,6 @@ const App = () => {
           <Route path='/leaderboard' element={<LeaderBoard />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
-          {/* <Route path='*' element={<Navigate to='/' />} /> */}
         </Routes>
       
       </div>
