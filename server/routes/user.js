@@ -1,9 +1,12 @@
 const express = require('express');
+const triviaController = require('../controllers/triviaController');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.status(200).send('At /user');
-});
+router.get('/', 
+  triviaController.getUsers,
+  (req, res) => {
+    res.status(200).send(res.locals.users);
+  });
 
 module.exports = router;

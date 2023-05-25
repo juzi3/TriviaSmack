@@ -27,7 +27,7 @@ const questionSchema = new Schema({
 const Question = mongoose.model('question', questionSchema);
 
 const scoreSchema = new Schema({
-  user: String,
+  username: String,
   score: Number
 });
 

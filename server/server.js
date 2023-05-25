@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 // connect to mongodb
-const MONGO_URI = 'mongodb+srv://julmacalalag:5GxlXm4hwp6s69ZT@cluster0.16plj84.mongodb.net/?retryWrites=true&w=majority';
+const MONGO_URI = 'test';
 
 mongoose.connect(MONGO_URI, {
   // options for the connect method to parse the URI
@@ -40,25 +40,29 @@ app.use(logger);
 app.use('/play', playRouter);
 app.use('/user', userRouter);
 
-app.use('/', (req, res) => {
-  console.log('served index.html');
-  return res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
-});
-
-
 // handle signup
 app.route('/signup')
-  .get((req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/index.html')))
+  .get((req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/dist/index.html')))
   .post(triviaController.createUser, (req, res) => {
     res.send('Hi');
   });
 
 // handle login
-app.post('/login', triviaController.verifyUser);
+app.route('/login')
+  .get((req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/dist/index.html')))
+  .post(triviaController.verifyUser, 
+    (req, res) => {
+      res.status(200).redirect('/play');
+    });
 
 app.use('/secret/questions', triviaController.getQuestions, (req, res) => {
   console.log('in secrets');
-  res.status(200).send( 'Hi', { questions: res.locals.question });
+  res.status(200).send( {'Hi': res.locals.question} );
+});
+
+app.use('/', (req, res) => {
+  console.log('served index.html');
+  return res.status(200).sendFile(path.resolve(__dirname, '../client/dist/index.html'));
 });
 
 // 404 handler

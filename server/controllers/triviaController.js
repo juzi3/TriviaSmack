@@ -11,7 +11,7 @@ triviaController.verifyUser = async (req, res, next) => {
 
     const foundUser = await User.findOne({username, password});
     res.locals.user = foundUser;
-    return res.redirect('/home');
+    return next();
   } catch(err) {
     res.status(500);
     return next(err);
@@ -40,16 +40,26 @@ triviaController.createUser = async (req, res, next) => {
 
 };
 
+triviaController.getUsers = async (req, res, next) => {
+
+  try {
+    
+    const usersFound = await User.find({});
+    res.locals.users = usersFound;
+    return next();
+  } catch(err) {
+    return next({error: err});
+  }
+
+};
+
 triviaController.getQuestions = async (req, res, next) => {
 
   try {
     
-    await Question.find({}, (err, questions) => {
-      if (err) return next(err);
-  
-      res.locals.question = questions;
-      return next();
-    });
+    const questionFound = await Question.find({});
+    res.locals.question = questionFound[0];
+    return next();
   } catch(err) {
     return next({error: err});
   }
