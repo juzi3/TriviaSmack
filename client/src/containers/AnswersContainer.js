@@ -1,7 +1,7 @@
 import React from 'react';
 import Answer from '../components/Answer';
 
-const AnswersContainer = ({details, questionNumHandler, questionNum, scoreHandler, score}) => {
+const AnswersContainer = ({details, questionNumHandler, questionNum, scoreHandler, score, streak, streakHandler}) => {
 
   const { correctAnswer, incorrectAnswers } = details[questionNum];
 
@@ -24,7 +24,9 @@ const AnswersContainer = ({details, questionNumHandler, questionNum, scoreHandle
           questionNum={questionNum} 
           questionNumHandler={questionNumHandler} 
           scoreHandler={scoreHandler} 
-          score={score} />;
+          score={score}
+          streak={streak}
+          streakHandler={streakHandler} />;
       })}
     </div>
   );

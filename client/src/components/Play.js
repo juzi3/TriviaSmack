@@ -7,7 +7,7 @@ import AnswersContainer from '../containers/AnswersContainer';
 
 const Play = () => {
 
-  const [category, setCategory] = useState(null);
+  const [streak, setStreak] = useState(0);
   const [question, setQuestion] = useState({});
   const [questionNum, setQuestionNum] = useState(0);
   const [timesPlayed, setTimesPlayed] = useState(0);
@@ -17,7 +17,7 @@ const Play = () => {
   // console.log(questionNum, details, 'in play');
 
   const reset = () => {
-    setCategory(null);
+    setStreak(0);
     setScore(0);
     setQuestion({});
     setQuestionNum(0);
@@ -55,8 +55,15 @@ const Play = () => {
       display = (
         <div id="in-game-container">
           <ScoreDisplay value={score} />
-          <Question details={question} questionNum={questionNum} categoryHandler={setCategory} />
-          <AnswersContainer details={question} questionNum={questionNum} questionNumHandler={setQuestionNum} score={score} scoreHandler={setScore} />
+          <Question details={question} questionNum={questionNum} />
+          <AnswersContainer details={question}
+            questionNum={questionNum}
+            questionNumHandler={setQuestionNum}
+            score={score}
+            scoreHandler={setScore}
+            streakHandler={setStreak}
+            streak={streak}
+          />
         </div>
       );
       // when no more q's, asks if you want to play again

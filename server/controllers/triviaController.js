@@ -1,4 +1,4 @@
-import { User, Question, Score } from '../models/triviaModels';
+const { User, Question, Score } = require('../models/triviaModels');
 
 const triviaController = {};
 
@@ -13,34 +13,47 @@ triviaController.verifyUser = async (req, res, next) => {
     res.locals.user = foundUser;
     return res.redirect('/home');
   } catch(err) {
-    res.status(500).send({error: `Error in verifyUser ${err}`});
+    res.status(500);
+    return next(err);
   }
 
 };
 
 // create User during signup
-triviaController.createUser = (req, res, next) => {
+triviaController.createUser = async (req, res, next) => {
 
-  const { username, password } = req.body;
+  try {
 
-  if (username && password) {
-    User.create({username, password});
-    return res.redirect('/play');
-  } else {
-    res.status(500).send({error: 'Error when creating user'});
-    return next();
+    const { username, password } = req.body;
+  
+    if (username && password) {
+      User.create({username, password});
+      return res.redirect('/play');
+    } else {
+      res.status(500);
+      return next({error: 'Error when creating user'});
+    }
+
+  } catch(err) {
+    return next(err);
   }
 
 };
 
 triviaController.getQuestions = async (req, res, next) => {
-  Question.find({}, (err, questions) => {
-    if (err) return next('Error in getQuestions: ' + JSON.stringify(err));
 
-    res.locals.question = questions;
-    return next();
-  });
+  try {
+    
+    await Question.find({}, (err, questions) => {
+      if (err) return next(err);
+  
+      res.locals.question = questions;
+      return next();
+    });
+  } catch(err) {
+    return next({error: err});
+  }
 
 };
 
-export default triviaController;
+module.exports = triviaController;
