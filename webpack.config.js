@@ -12,10 +12,10 @@ module.exports = {
     clean: true,
   },
 
-  mode: 'development',
+  mode: process.env.NODE_ENV || 'production',
   devServer: {
     host: 'localhost',
-    port: 3000,
+    port: 3040,
     // enable HMR on the devServer
     hot: true,
     // fallback to root for other urls
@@ -27,17 +27,6 @@ module.exports = {
       directory: path.resolve(__dirname, 'client/dist'),
       // match the output 'publicPath'
       publicPath: '/',
-    },
-    
-    proxy: {
-      '/test': {
-        target: 'http://localhost:3000/',
-        secure: false,
-      },
-      // '/login': {
-      //   target: 'http://localhost:3000/',
-      //   secure: false,
-      // },
     },
   },
 

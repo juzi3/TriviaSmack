@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useLocation } from 'react-router-dom';
 
 import '../styles.css';
 import Play from './components/Play';
 import Home from './components/Home';
 import Login from './components/Login';
+import Logout from './components/Logout';
 import Signup from './components/Signup';
 import LeaderBoard from './components/LeaderBoard';
+import Auth from '../../server/auth';
 
 const App = () => {
 
@@ -27,6 +29,24 @@ const App = () => {
     setPlay(false);
     return;
   };
+  
+  // try using uselocation to see if path is ../play/someUsername
+  const location = useLocation();
+  // let display = <Link to='/login'>Login</Link>;
+  // // const isLoggedIn = localStorage.getItem('username');
+  // if (!Auth.isLoggedIn) {
+  //   display = (
+  //     <li>
+  //       <Link to='/login'>Login</Link>
+  //     </li>
+  //   );
+  // } else {
+  //   display = (
+  //     <li onClick={() => Auth.isLoggedIn = false}>
+  //       <Link to='/logout'>Logout</Link>
+  //     </li>
+  //   );
+  // }
 
   return (
     
@@ -44,7 +64,7 @@ const App = () => {
           </div>
           <div id="center-nav">
             <Link to='/'>
-              <h1 onClick={() => reset()} id='game-title' className='pointer'> Trivia Game</h1>
+              <h1 onClick={() => reset()} id='game-title' className='pointer'> TriviaSmack</h1>
             </Link>
           </div>
           <div id="right-nav">
@@ -63,8 +83,10 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/play' element={<Play />} />
+          <Route path='/play/:player' element={<Play />} />
           <Route path='/leaderboard' element={<LeaderBoard />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/logout' element={<Logout />} />
           <Route path='/signup' element={<Signup />} />
         </Routes>
       

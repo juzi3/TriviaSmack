@@ -1,4 +1,5 @@
 const { User, Question, Score } = require('../models/triviaModels');
+const Auth = require('../auth');
 
 const triviaController = {};
 

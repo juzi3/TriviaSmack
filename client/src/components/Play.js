@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Cookie from 'js-cookie';
 
 import ScoreDisplay from './ScoreDisplay';
@@ -22,18 +22,24 @@ const Play = () => {
     setQuestionNum(0);
     // setTimer(30);
   };
+
+  // makes fetch request to questions api
+  const handleFetch = async () => {
+    try {
+      const res = await fetch('https://the-trivia-api.com/v2/questions');
+      const data = await res.json();
+      setQuestion(data);
+    } catch(err) {
+      console.log('Error in app: fetch to api', err);
+    }
+  };
   
-  useEffect(() => {
+  // when clickedPlay changes questionNum resets to 0 and new set of questions fetched
+  useEffect( () => {
     // using api, might need new api
     setQuestionNum(0);
-    fetch('https://the-trivia-api.com/v2/questions')
-      .then(res => res.json())
-      .then(data => {
-      
-        console.log('useEffect fired');
-        setQuestion(data);
-      })
-      .catch(err => console.log('Error in app: fetch to api', err));
+    console.log('useEffect fired');
+    handleFetch();
   }, [clickedPlay]);
 
   // const startTimer = () => {
@@ -44,7 +50,8 @@ const Play = () => {
   //     setTimer(30);
   //   }
   // };
-
+  const { id } = useParams();
+  console.log(id, 'in play');
 
   let display;
   // checks if play button clicked
@@ -97,13 +104,6 @@ const Play = () => {
       );
 
     }
-    // } else {
-      
-    // display = (
-    //   <CategoryDisplay clickHandler={setCategory} />
-    // );
-    // }
-    // if play button hasn't been clicked then display is just play button
   } else {
 
     display = (

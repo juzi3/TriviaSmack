@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -15,9 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 // connect to mongodb
-const MONGO_URI = 'url';
-
-mongoose.connect(MONGO_URI, {
+mongoose.connect(process.env.MONGO_URI, {
   // options for the connect method to parse the URI
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -42,7 +41,7 @@ app.use(logger);
 
 // route handlers
 // takes u to play
-app.use('/play', playRouter);
+// app.use('/play', playRouter);
 // access questions, users, scores
 app.use('/secret', userRouter);
 
@@ -53,17 +52,17 @@ app.route('/signup')
     cookieSessionController.setCookie,
     cookieSessionController.startSession,
     (req, res) => {
-      res.status(200).redirect('/play');
+      res.status(200).redirect(`/play/${res.locals.user.username}`);
     });
   
 // handle login
 app.route('/login')
-  .get((req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/dist/index.html')))
+  // .get((req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/dist/index.html')))
   .post(triviaController.verifyUser,
     cookieSessionController.setCookie,
     cookieSessionController.startSession, 
     (req, res) => {
-      res.status(200).redirect('/play');
+      res.status(200).redirect(`/play/${res.locals.user.username}`);
     });
     
 app.route('/leaderboard')
@@ -79,10 +78,7 @@ app.use('/', (req, res) => {
 });
 
 // 404 handler
-app.use('*', (req, res) => {
-  console.log('ERRRROR');
-  res.status(404).send('Not Found');
-});
+app.use((req, res) => res.status(404).send('Not Found'));
 
 // Global error handler
 app.use((err, req, res, next) => {

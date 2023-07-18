@@ -4,7 +4,7 @@ const Login = () => {
 
   return (
     <div id="login-container">
-      <form method="POST" action='/login'>
+      <form method="POST" action='/login/'>
         <input name="username" type="text" placeholder="username"></input>
         <input name="password" type="password" placeholder="password"></input>
         <input className='submit-btn pointer' type='submit' value="Login" />
