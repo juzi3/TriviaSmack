@@ -1,8 +1,15 @@
-import React from 'react';
-import Answer from '../components/Answer';
+import React from "react";
+import Answer from "../components/Answer";
 
-const AnswersContainer = ({details, questionNumHandler, questionNum, scoreHandler, score, streak, streakHandler}) => {
-
+const AnswersContainer = ({
+  details,
+  questionNumHandler,
+  questionNum,
+  scoreHandler,
+  score,
+  streak,
+  streakHandler,
+}) => {
   const { correctAnswer, incorrectAnswers } = details[questionNum];
 
   const answers = [correctAnswer, ...incorrectAnswers];
@@ -14,23 +21,25 @@ const AnswersContainer = ({details, questionNumHandler, questionNum, scoreHandle
 
   // console.log(details[questionNum], 'in answer');
   return (
-    <div id='answer-container'>
+    <div id="answer-container">
       {answers.map((elem, i) => {
-        return <Answer 
-          key={i} 
-          index={i} 
-          value={elem} 
-          correct={correctAnswer} 
-          questionNum={questionNum} 
-          questionNumHandler={questionNumHandler} 
-          scoreHandler={scoreHandler} 
-          score={score}
-          streak={streak}
-          streakHandler={streakHandler} />;
+        return (
+          <Answer
+            key={i}
+            index={i}
+            value={elem}
+            correct={correctAnswer}
+            questionNum={questionNum}
+            questionNumHandler={questionNumHandler}
+            scoreHandler={scoreHandler}
+            score={score}
+            streak={streak}
+            streakHandler={streakHandler}
+          />
+        );
       })}
     </div>
   );
-
 };
 
 export default AnswersContainer;

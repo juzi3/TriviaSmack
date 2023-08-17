@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import { Route, Routes, Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Route, Routes, Link, useLocation } from "react-router-dom";
 
-import '../styles.css';
-import Play from './components/Play';
-import Home from './components/Home';
-import Login from './components/Login';
-import Logout from './components/Logout';
-import Signup from './components/Signup';
-import LeaderBoard from './components/LeaderBoard';
-import Auth from '../../server/auth';
+import "../styles.css";
+import Play from "./components/Play";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
+import Signup from "./components/Signup";
+import LeaderBoard from "./components/LeaderBoard";
+import Auth from "../../server/auth";
 
 const App = () => {
-
   // moved to homepage
   const [category, setCategory] = useState(null);
   const [question, setQuestion] = useState({});
@@ -19,6 +18,9 @@ const App = () => {
   const [details, setDetails] = useState({});
   const [score, setScore] = useState(0);
   const [clickedPlay, setPlay] = useState(false);
+  const [leaders, setLeaders] = useState(
+    Array(5).fill({ username: null, score: null })
+  );
   // console.log(category, 'above useEffect');
 
   const reset = () => {
@@ -29,7 +31,21 @@ const App = () => {
     setPlay(false);
     return;
   };
-  
+
+  useEffect(() => {
+    const fetchLeaders = async () => {
+      const res = await fetch("../secret/scores");
+      const data = await res.json();
+      data.sort((a, b) => b.score - a.score);
+      if (data.length !== 5) {
+        while (data.length < 6) {
+          data.push([{ username: null, score: null }]);
+        }
+      }
+      setLeaders(data);
+    };
+  }, []);
+
   // try using uselocation to see if path is ../play/someUsername
   const location = useLocation();
   // let display = <Link to='/login'>Login</Link>;
@@ -49,52 +65,53 @@ const App = () => {
   // }
 
   return (
-    
-  // add navbar
+    // add navbar
     <>
       <nav>
         <ul>
-          <div id='left-nav'>
+          <div id="left-nav">
             <li>
-              <Link to='/'>Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to='/leaderboard'>Leaderboard</Link>
+              <Link to="/leaderboard">Leaderboard</Link>
             </li>
           </div>
           <div id="center-nav">
-            <Link to='/'>
-              <h1 onClick={() => reset()} id='game-title' className='pointer'> TriviaSmack</h1>
+            <Link to="/">
+              <h1 onClick={() => reset()} id="game-title" className="pointer">
+                {" "}
+                TriviaSmack
+              </h1>
             </Link>
           </div>
           <div id="right-nav">
             <li>
-              <Link to='/login'>Login</Link>
+              <Link to="/login">Login</Link>
             </li>
             <li>
-              <Link to='/signup'>Sign up</Link>
+              <Link to="/signup">Sign up</Link>
             </li>
           </div>
         </ul>
       </nav>
 
       <div>
-
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/play' element={<Play />} />
-          <Route path='/play/:player' element={<Play />} />
-          <Route path='/leaderboard' element={<LeaderBoard />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/logout' element={<Logout />} />
-          <Route path='/signup' element={<Signup />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/play" element={<Play />} />
+          <Route path="/play/:id" element={<Play />} />
+          <Route
+            path="/leaderboard"
+            element={<LeaderBoard leaders={leaders} />}
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
-      
       </div>
     </>
-
   );
-
 };
 
 export default App;
