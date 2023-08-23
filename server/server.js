@@ -1,23 +1,22 @@
-require("dotenv").config();
-import { resolve } from "path";
+import "dotenv/config";
+import path, { resolve } from "path";
 import express, { json, urlencoded } from "express";
 import { connect } from "mongoose";
 
 const app = express();
 
-import playRouter from "./routes/api";
-import userRouter from "./routes/user";
-import {
-  createUser,
-  verifyUser,
-  addScore,
-} from "./controllers/triviaController";
-import { setCookie, startSession } from "./controllers/cookieSessionController";
+// import playRouter from "./routes/api";
+import userRouter from "./routes/user.js";
+import Trivia from "./controllers/triviaController.js";
+import CookieSession from "./controllers/cookieSessionController.js";
+import { fileURLToPath } from "url";
 
 const PORT = 3000;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+console.log(__dirname);
 
 app.use(json());
-app.use(urlencoded());
+app.use(urlencoded({ extended: true }));
 
 // connect to mongodb
 connect(process.env.MONGO_URI, {
@@ -39,7 +38,7 @@ const logger = (req, res, next) => {
   next();
 };
 
-app.use(logger);
+// app.use(logger);
 
 // route handlers
 // takes u to play
@@ -48,31 +47,31 @@ app.use(logger);
 app.use("/secret", userRouter);
 
 // handle signup
-app
-  .route("/signup")
-  .get((req, res) =>
-    res.status(200).sendFile(resolve(__dirname, "../client/dist/index.html"))
-  )
-  .post(createUser, setCookie, startSession, (req, res) => {
-    res.status(200).redirect(`/play/${res.locals.user.username}`);
-  });
+app.post(
+  "/api/signup",
+  Trivia.createUser,
+  CookieSession.setCookie,
+  CookieSession.startSession,
+  (req, res) => {
+    res.status(200).json({ username: res.locals.user });
+  }
+);
 
 // handle login
-app
-  .route("/login")
-  // .get((req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/dist/index.html')))
-  .post(verifyUser, setCookie, startSession, (req, res) => {
-    res.status(200).redirect(`/play/${res.locals.user.username}`);
-  });
+app.post(
+  "/api/login",
+  Trivia.verifyUser,
+  CookieSession.setCookie,
+  CookieSession.startSession,
+  (req, res) => {
+    console.log("in server /login", res.locals);
+    res.status(200).json({ username: res.locals.user.username });
+  }
+);
 
-app
-  .route("/leaderboard")
-  .get((req, res) =>
-    res.status(200).sendFile(resolve(__dirname, "../client/dist/index.html"))
-  )
-  .post(addScore, (req, res) => {
-    res.status(200).redirect("/leaderboard");
-  });
+app.post("/api/leaderboard", Trivia.addScore, (req, res) => {
+  res.status(200).json("Score added");
+});
 
 app.use("/", (req, res) => {
   console.log("served index.html");
@@ -82,7 +81,7 @@ app.use("/", (req, res) => {
 });
 
 // 404 handler
-app.use((req, res) => res.status(404).send("Not Found"));
+app.use("*", (req, res) => res.status(404).send("Not Found"));
 
 // Global error handler
 app.use((err, req, res, next) => {

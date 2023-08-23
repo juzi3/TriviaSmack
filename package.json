@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Solo Project - Trivia",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon ./server/server.js",
-    "dev": "cross-env NODE_ENV=development webpack serve --open --hot --progress --color & nodemon ./server/server.js",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot & nodemon ./server/server.js",
     "build": "webpack --mode production",
     "test": "jest"
   },

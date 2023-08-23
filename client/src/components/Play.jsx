@@ -19,7 +19,6 @@ const Play = () => {
     setScore(0);
     setQuestion({});
     setQuestionNum(0);
-
   };
 
   // makes fetch request to questions api
@@ -107,7 +106,7 @@ const Play = () => {
             </div>
           </Link>
 
-          <form method="POST" action="/leaderboard">
+          <form method="POST" action="/api/leaderboard">
             <input
               className="submit-btn pointer"
               type="submit"

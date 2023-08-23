@@ -1,112 +1,90 @@
-const { User, Question, Score } = require('../models/triviaModels');
-const Auth = require('../auth');
+import Models from "../models/triviaModels.js";
+import Auth from "../auth.js";
 
 const triviaController = {};
 
 // verify for login
 triviaController.verifyUser = async (req, res, next) => {
-
   const { username, password } = req.body;
-  if (!username || !password) return res.redirect('/signup');
+  if (!username || !password) return res.redirect("/signup");
   try {
-
-    const foundUser = await User.findOne({username, password});
+    const foundUser = await Models.User.findOne({ username, password });
     if (foundUser) {
       res.locals.user = foundUser;
       return next();
     } else {
-      return res.redirect('/signup');
+      return res.redirect("/signup");
     }
-  } catch(err) {
+  } catch (err) {
     res.status(500);
     return next(err);
   }
-
 };
 
 // create User during signup
 triviaController.createUser = async (req, res, next) => {
-
   try {
-
     const { username, password } = req.body;
-  
+
     if (username && password) {
-      const createdUser = await User.create({username, password});
+      const createdUser = await Models.User.create({ username, password });
       res.locals.user = createdUser;
       return next();
-      // return res.redirect('/play');
     } else {
       res.status(500);
-      return next({error: 'Error when creating user'});
+      return next({ error: "Error when creating user" });
     }
-
-  } catch(err) {
+  } catch (err) {
     return next(err);
   }
-
 };
 
 triviaController.getUsers = async (req, res, next) => {
-
   try {
-    
-    const usersFound = await User.find({});
+    const usersFound = await Models.User.find({});
     res.locals.users = usersFound;
     return next();
-  } catch(err) {
-    return next({error: err});
+  } catch (err) {
+    return next({ error: err });
   }
-
 };
 
 triviaController.getQuestions = async (req, res, next) => {
-
   try {
-    
-    const questionFound = await Question.find({});
+    const questionFound = await Models.Question.find({});
     res.locals.question = questionFound[0];
     return next();
-  } catch(err) {
-    return next({error: err});
+  } catch (err) {
+    return next({ error: err });
   }
-
 };
 
 triviaController.getScores = async (req, res, next) => {
-
   try {
-    
-    const scoreFound = await Score.find({});
+    const scoreFound = await Models.Score.find({});
     res.locals.scores = scoreFound;
     return next();
-  } catch(err) {
-    return next({error: err});
+  } catch (err) {
+    return next({ error: err });
   }
-
 };
 
 triviaController.addScore = async (req, res, next) => {
-
   try {
-
     const { username, score } = req.body;
 
     if (score !== null && score !== undefined) {
       if (!username) {
-        Score.create({username: 'Guest', score});
-        return next();
+        Models.Score.create({ username: "Guest", score });
       }
-      Score.create({username , score});
-      return res.redirect('/leaderboard');
+      Models.Score.create({ username, score });
+      return next();
     } else {
-      res.redirect('/play');
+      res.redirect("/play");
     }
-
-  } catch(err) {
+  } catch (err) {
     return next(err);
   }
-
 };
 
-module.exports = triviaController;
+export default triviaController;

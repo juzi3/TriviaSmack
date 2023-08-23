@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema as _Schema, model } from "mongoose";
 
-const Schema = mongoose.Schema;
+const Schema = _Schema;
 
 // question schema
 const questionSchema = new Schema({
@@ -9,40 +9,40 @@ const questionSchema = new Schema({
   difficulty: String,
   incorrectAnswer: Array,
   question: {
-    text: String
-  }
+    text: String,
+  },
 });
 
-const Question = mongoose.model('question', questionSchema);
+const Question = model("question", questionSchema);
 
 // score schema
 const scoreSchema = new Schema({
   username: String,
-  score: Number
+  score: Number,
 });
 
-const Score = mongoose.model('score', scoreSchema);
+const Score = model("score", scoreSchema);
 
 // user schema
 const userSchema = new Schema({
-  username: {type: String, required: true, unique: true},
-  password: {type: String, required: true}
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
 });
 
-const User = mongoose.model('user', userSchema);
+const User = model("user", userSchema);
 
 // session schema
 const sessionSchema = new Schema({
-  cookieId: { type: String, required: true, unique: true},
-  createdAt: { type: Date, expires: 30, default: Date.now }
+  cookieId: { type: String, required: true, unique: true },
+  createdAt: { type: Date, expires: 30, default: Date.now },
 });
 
-const Session = mongoose.model('session', sessionSchema);
+const Session = model("session", sessionSchema);
 
 // exports all the models in an object to be used in the controller
-module.exports = {
+export default {
   Question,
   Score,
   User,
-  Session 
+  Session,
 };

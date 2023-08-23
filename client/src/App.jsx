@@ -9,6 +9,7 @@ import Logout from "./components/Logout";
 import Signup from "./components/Signup";
 import LeaderBoard from "./components/LeaderBoard";
 import Auth from "../../server/auth";
+import { UserProvider } from "./UserContext";
 
 const App = () => {
   // moved to homepage
@@ -33,9 +34,13 @@ const App = () => {
   };
 
   useEffect(() => {
+    console.log("leaders use effect");
     const fetchLeaders = async () => {
-      const res = await fetch("../secret/scores");
+      console.log("fetchLeaders fired!");
+      const res = await fetch("/secret/scores");
+      console.log(res, "res from fL");
       const data = await res.json();
+      console.log(data, "data from leaderboard");
       data.sort((a, b) => b.score - a.score);
       if (data.length !== 5) {
         while (data.length < 6) {
@@ -44,6 +49,7 @@ const App = () => {
       }
       setLeaders(data);
     };
+    fetchLeaders();
   }, []);
 
   // try using uselocation to see if path is ../play/someUsername
@@ -66,7 +72,7 @@ const App = () => {
 
   return (
     // add navbar
-    <>
+    <UserProvider>
       <nav>
         <ul>
           <div id="left-nav">
@@ -110,7 +116,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
-    </>
+    </UserProvider>
   );
 };
 
