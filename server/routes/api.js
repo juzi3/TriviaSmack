@@ -1,15 +1,11 @@
-const express = require('express');
-const path = require('path');
+import { Router } from "express";
+import { resolve } from "path";
 
-const router = express.Router();
+const router = Router();
 
-router
-  .get('/', (req, res) => {
-    // res.send('hi');
-    res.status(200).sendFile(path.resolve(__dirname, '../../client/dist/index.html'));
-  });
+router.get("/", (req, res) => {
+  // res.send('hi');
+  res.status(200).sendFile(resolve(__dirname, "../../client/dist/index.html"));
+});
 
-
-
-module.exports = router;
-
+export default router;

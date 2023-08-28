@@ -1,21 +1,23 @@
-const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+import path from "path";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import { fileURLToPath } from "url";
 
-module.exports = {
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-  entry: path.resolve(__dirname, 'client/src/index.js'),
+export default {
+  entry: path.resolve(__dirname, "client/src/index.js"),
 
   output: {
-    path: path.resolve(__dirname, 'client/dist'),
-    filename: 'bundle.js',
-    publicPath: '/',
+    path: path.resolve(__dirname, "client/dist"),
+    filename: "bundle.js",
+    publicPath: "/",
     clean: true,
   },
 
-  mode: 'development',
+  mode: process.env.NODE_ENV || "production",
   devServer: {
-    host: 'localhost',
-    port: 3000,
+    host: "localhost",
+    port: 3040,
     // enable HMR on the devServer
     hot: true,
     // fallback to root for other urls
@@ -24,50 +26,38 @@ module.exports = {
 
     static: {
       // match the output path
-      directory: path.resolve(__dirname, 'client/dist'),
+      directory: path.resolve(__dirname, "client/dist"),
       // match the output 'publicPath'
-      publicPath: '/',
-    },
-    
-    proxy: {
-      '/test': {
-        target: 'http://localhost:3000/',
-        secure: false,
-      },
-      // '/login': {
-      //   target: 'http://localhost:3000/',
-      //   secure: false,
-      // },
+      publicPath: "/",
     },
   },
 
   plugins: [
-    new HTMLWebpackPlugin({
-      template: './client/index.html'
-    })
+    new HtmlWebpackPlugin({
+      template: "./client/index.html",
+    }),
   ],
 
   module: {
     rules: [
       {
-        test: /.js$/,
+        test: /\.(js|jsx|ts)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+          },
+        },
       },
       {
         test: /.(css|scss)$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader'],
-      }
-    ]
+        use: ["style-loader", "css-loader"],
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: [".js", ".jsx"],
   },
-
 };
