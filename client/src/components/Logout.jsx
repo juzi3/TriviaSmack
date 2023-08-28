@@ -1,19 +1,20 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../UserContext";
 
 const Logout = () => {
+  const [prevUser, setPrev] = useState(null);
+  const [user, setUser] = useContext(UserContext);
 
-  const location = useLocation();
-  const data = location.state;
-  console.log(location, data);
+  useEffect(() => {
+    setPrev(user);
+    setUser(null);
+  }, []);
 
   return (
     <div id="logout-container">
-      <h1>You Have Logged Out!</h1>
+      <h1>Bye {prevUser}! See you next time!</h1>
     </div>
   );
-
 };
-
 
 export default Logout;

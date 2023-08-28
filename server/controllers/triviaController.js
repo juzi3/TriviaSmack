@@ -6,14 +6,16 @@ const triviaController = {};
 // verify for login
 triviaController.verifyUser = async (req, res, next) => {
   const { username, password } = req.body;
-  if (!username || !password) return res.redirect("/signup");
+  if (!username || !password) {
+    return res.json({ error: "missing username/password" });
+  }
   try {
     const foundUser = await Models.User.findOne({ username, password });
     if (foundUser) {
       res.locals.user = foundUser;
       return next();
     } else {
-      return res.redirect("/signup");
+      return res.json({ error: "User not found" });
     }
   } catch (err) {
     res.status(500);
@@ -25,14 +27,18 @@ triviaController.verifyUser = async (req, res, next) => {
 triviaController.createUser = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-
+    
+    const foundUser = await Models.User.findOne({ username, password });
+    if (foundUser) {
+      return next({error: 'User already exists'});
+    }
     if (username && password) {
       const createdUser = await Models.User.create({ username, password });
       res.locals.user = createdUser;
       return next();
     } else {
       res.status(500);
-      return next({ error: "Error when creating user" });
+      return next({ error: "Missing username/password" });
     }
   } catch (err) {
     return next(err);

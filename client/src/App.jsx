@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Route, Routes, Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { Route, Routes, Link } from "react-router-dom";
 
 import "../styles.css";
 import Play from "./components/Play";
@@ -9,7 +9,7 @@ import Logout from "./components/Logout";
 import Signup from "./components/Signup";
 import LeaderBoard from "./components/LeaderBoard";
 import Auth from "../../server/auth";
-import { UserProvider } from "./UserContext";
+import { UserContext } from "./UserContext";
 
 const App = () => {
   // moved to homepage
@@ -22,7 +22,8 @@ const App = () => {
   const [leaders, setLeaders] = useState(
     Array(5).fill({ username: null, score: null })
   );
-  // console.log(category, 'above useEffect');
+
+  const [user, setUser] = useContext(UserContext);
 
   const reset = () => {
     setCategory(null);
@@ -52,27 +53,9 @@ const App = () => {
     fetchLeaders();
   }, []);
 
-  // try using uselocation to see if path is ../play/someUsername
-  const location = useLocation();
-  // let display = <Link to='/login'>Login</Link>;
-  // // const isLoggedIn = localStorage.getItem('username');
-  // if (!Auth.isLoggedIn) {
-  //   display = (
-  //     <li>
-  //       <Link to='/login'>Login</Link>
-  //     </li>
-  //   );
-  // } else {
-  //   display = (
-  //     <li onClick={() => Auth.isLoggedIn = false}>
-  //       <Link to='/logout'>Logout</Link>
-  //     </li>
-  //   );
-  // }
-
   return (
     // add navbar
-    <UserProvider>
+    <>
       <nav>
         <ul>
           <div id="left-nav">
@@ -92,12 +75,25 @@ const App = () => {
             </Link>
           </div>
           <div id="right-nav">
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign up</Link>
-            </li>
+            {!user ? (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Sign up</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <h3 id="nav-user-display">{user}</h3>
+                </li>
+                <li>
+                  <Link to="/logout">Logout</Link>
+                </li>
+              </>
+            )}
           </div>
         </ul>
       </nav>
@@ -116,7 +112,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
-    </UserProvider>
+    </>
   );
 };
 

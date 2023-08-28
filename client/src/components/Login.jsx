@@ -5,6 +5,7 @@ import { UserContext } from "../UserContext";
 const Login = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
+  const [incorrectLogin, setIncorrect] = useState(false);
 
   const navigate = useNavigate();
 
@@ -27,8 +28,11 @@ const Login = () => {
 
     if (data.username) {
       setUser(data.username);
+      setIncorrect(false);
       console.log(user, "after setUser");
-    } else {
+    }
+    if (data.error) {
+      setIncorrect(true);
       console.log("error in handleLogin, no username");
     }
   };
@@ -38,7 +42,6 @@ const Login = () => {
       <div className="login-signup">
         <input
           name="username"
-          type="text"
           placeholder="username"
           onChange={(e) => setUsername(e.target.value)}
         ></input>
@@ -55,6 +58,9 @@ const Login = () => {
           onClick={() => handleLogin()}
         />
       </div>
+      {incorrectLogin ? (
+        <p id="incorrect-login">Incorrect username and/or password</p>
+      ) : null}
       <span>
         Don&apos;t have an account? <a href="./signup">Sign up</a>
       </span>

@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Cookie from "js-cookie";
+import { UserContext } from "../UserContext";
 
 const Home = () => {
-  return (
+  const [user] = useContext(UserContext);
+
+  return user ? (
+    <div id="home-page">
+      <h1>Welcome {user}!</h1>
+      <Link to={`/play/${user}`}>
+        <h2 id="home-to-play">Play</h2>
+      </Link>
+    </div>
+  ) : (
     <div id="home-page">
       <h1>Welcome</h1>
 

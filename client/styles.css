@@ -67,11 +67,6 @@ h2:not(#question-heading, #play-again > div > h2):hover {
   align-items: center;
 }
 
-/* #right-nav > li:first-of-type:hover > a {
-  color: var(--secondary-light-color);
-  background-color: var(--primary-color);
-} */
-
 #right-nav > li:last-of-type > a {
   color: var(--secondary-light-color);
   background-color: var(--primary-color);
@@ -92,6 +87,10 @@ h2:not(#question-heading, #play-again > div > h2):hover {
 #right-nav > li {
   display: flex;
   align-items: center;
+}
+
+#nav-user-display {
+  color: white;
 }
 
 a {
@@ -229,6 +228,10 @@ a {
   box-shadow: 0.25rem 0.25rem 0.2rem 0.1rem rgba(0, 0, 0, 0.2),
     -0.25rem 0.25rem 0.2rem 0.1rem rgba(0, 0, 0, 0.2);
   transform: scale(1.1);
+}
+
+#home-to-play {
+  color: white;
 }
 
 #play-section {
@@ -405,12 +408,23 @@ h3 {
   border-radius: 0.5rem;
 }
 
+#logout-container {
+  padding-top: 10rem;
+  color: var(--primary-color);
+}
+
 .login-signup {
   max-height: 250px;
   width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+#incorrect-login {
+  margin: 0;
+  color: rgb(208, 95, 95);
+  max-height: 10px;
 }
 
 .login-signup > input:not(.submit-btn) {
