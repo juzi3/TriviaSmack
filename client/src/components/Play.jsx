@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import Cookie from "js-cookie";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ScoreDisplay from "./ScoreDisplay";
-import Question from "./Question";
 import AnswersContainer from "../containers/AnswersContainer";
+import { UserContext } from "../UserContext";
 
 const Play = () => {
   const [streak, setStreak] = useState(0);
@@ -13,6 +12,9 @@ const Play = () => {
   const [score, setScore] = useState(0);
   const [clickedPlay, setPlay] = useState(false);
   const [time, setTimer] = useState(30);
+  const [user] = useContext(UserContext).userValue;
+
+  const navigate = useNavigate();
 
   const reset = () => {
     setStreak(0);
@@ -26,9 +28,40 @@ const Play = () => {
     try {
       const res = await fetch("https://the-trivia-api.com/v2/questions");
       const data = await res.json();
-      setQuestion(data);
+      const details = {};
+
+      for (let i = 0; i < 10; i++) {
+        details[i] = {};
+        const { correctAnswer, incorrectAnswers } = data[i];
+        const answers = [correctAnswer, ...incorrectAnswers];
+        for (let i = answers.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [answers[i], answers[j]] = [answers[j], answers[i]];
+        }
+
+        details[i].answers = answers;
+        details[i].question = data[i].question;
+        details[i].correctAnswer = correctAnswer;
+      }
+
+      setQuestion(details);
     } catch (err) {
       console.log("Error in app: fetch to api", err);
+    }
+  };
+
+  const handleSendScore = async () => {
+    try {
+      const res = await fetch("/api/leaderboard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: user, score }),
+      });
+      const data = await res.json();
+
+      if (data.message === "Score added") navigate("/leaderboard");
+    } catch (err) {
+      console.log(`Error in handleSendScore: ${err}`);
     }
   };
 
@@ -42,14 +75,16 @@ const Play = () => {
 
   // decrements timer
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (time > 0) {
-        setTimer(time - 1);
-      }
-    }, 1000);
+    if (clickedPlay) {
+      const timer = setInterval(() => {
+        if (time > 0) {
+          setTimer(time - 1);
+        }
+      }, 1000);
 
-    return () => clearInterval(timer);
-  }, [time]);
+      return () => clearInterval(timer);
+    }
+  }, [time, clickedPlay]);
 
   // resets timer and question num
   const startTimer = () => {
@@ -67,7 +102,9 @@ const Play = () => {
       display = (
         <div id="in-game-container">
           <ScoreDisplay value={score} time={time} />
-          <Question details={question} questionNum={questionNum} />
+          <div id="question">
+            <h2 id="question-heading">{question[questionNum].question.text}</h2>
+          </div>
           <AnswersContainer
             details={question}
             questionNum={questionNum}
@@ -105,26 +142,12 @@ const Play = () => {
               <h2 className="pointer">No!</h2>
             </div>
           </Link>
-
-          <form method="POST" action="/api/leaderboard">
-            <input
-              className="submit-btn pointer"
-              type="submit"
-              value="Send Score!"
-            />
-            <input
-              name="username"
-              type="text"
-              value={Cookie.get("username")}
-              className="hidden-input"
-            ></input>
-            <input
-              name="score"
-              type="text"
-              value={score}
-              className="hidden-input"
-            ></input>
-          </form>
+          <input
+            className="submit-btn pointer"
+            type="submit"
+            value="Send Score!"
+            onClick={() => handleSendScore()}
+          />
         </div>
       );
     }

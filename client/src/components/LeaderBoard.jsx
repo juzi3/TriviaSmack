@@ -1,9 +1,8 @@
 import React from "react";
-import Leader from "./Leader";
 
 const LeaderBoard = ({ leaders }) => {
-
-  return (
+  console.log(leaders, "from leaderboard");
+  return leaders ? (
     <section id="leaderboard">
       <header>Top 5 Players</header>
       <div id="leaderboard-col-title">
@@ -12,14 +11,20 @@ const LeaderBoard = ({ leaders }) => {
         <span>Name</span>
       </div>
       <div id="leader-row-container">
-        {leaders.slice(0, 5).map((leader, i) => {
+        {leaders.map((leader, i) => {
           const { username, score } = leader;
           return (
-            <Leader key={i} username={username} score={score} rank={i + 1} />
+            <div key={username + score} className="leader-row">
+              <h3>{i + 1}</h3>
+              <h3>{score}</h3>
+              <h3>{username}</h3>
+            </div>
           );
         })}
       </div>
     </section>
+  ) : (
+    <h1 className="loading-spinner">🌀</h1>
   );
 };
 

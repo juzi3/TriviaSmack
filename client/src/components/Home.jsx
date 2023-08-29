@@ -4,7 +4,7 @@ import Cookie from "js-cookie";
 import { UserContext } from "../UserContext";
 
 const Home = () => {
-  const [user] = useContext(UserContext);
+  const [user] = useContext(UserContext).userValue;
 
   return user ? (
     <div id="home-page">
