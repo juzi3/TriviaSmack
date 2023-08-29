@@ -1,5 +1,4 @@
 import React from "react";
-import Answer from "../components/Answer";
 
 const AnswersContainer = ({
   details,
@@ -10,32 +9,31 @@ const AnswersContainer = ({
   streak,
   streakHandler,
 }) => {
-  const { correctAnswer, incorrectAnswers } = details[questionNum];
+  const { answers, correctAnswer } = details[questionNum];
 
-  const answers = [correctAnswer, ...incorrectAnswers];
+  const clickHandler = (ans) => {
+    questionNumHandler(questionNum + 1);
+    if (ans === correctAnswer) {
+      scoreHandler(score + 100 + 100 * streak);
+      streakHandler(streak + 1);
+    } else {
+      scoreHandler(score - 100);
+      streakHandler(0);
+    }
+  };
 
-  for (let i = answers.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [answers[i], answers[j]] = [answers[j], answers[i]];
-  }
-
-  // console.log(details[questionNum], 'in answer');
   return (
     <div id="answer-container">
       {answers.map((elem, i) => {
         return (
-          <Answer
-            key={i}
-            index={i}
-            value={elem}
-            correct={correctAnswer}
-            questionNum={questionNum}
-            questionNumHandler={questionNumHandler}
-            scoreHandler={scoreHandler}
-            score={score}
-            streak={streak}
-            streakHandler={streakHandler}
-          />
+          <div
+            key={elem + questionNum}
+            id={`answer${i}`}
+            className="answer pointer"
+            onClick={(e) => clickHandler(e.target.textContent)}
+          >
+            <h3>{elem}</h3>
+          </div>
         );
       })}
     </div>

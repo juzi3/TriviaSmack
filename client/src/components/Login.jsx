@@ -9,9 +9,12 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const [user, setUser] = useContext(UserContext);
+  const { userValue, signupValue } = useContext(UserContext);
+  const [user, setUser] = userValue;
+  const [succesfulSignup, setSuccess] = signupValue;
 
   if (user) {
+    setSuccess(false);
     navigate(`/play/${username}`);
   }
 
@@ -39,6 +42,12 @@ const Login = () => {
 
   return (
     <div id="login-container">
+      {succesfulSignup ? (
+        <div id="success-signup">
+          <h3>Successful Signup!</h3>
+          <p>Please login</p>
+        </div>
+      ) : null}
       <div className="login-signup">
         <input
           name="username"

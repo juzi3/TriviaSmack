@@ -13,20 +13,18 @@ import { UserContext } from "./UserContext";
 
 const App = () => {
   // moved to homepage
-  const [category, setCategory] = useState(null);
+  // const [category, setCategory] = useState(null);
   const [question, setQuestion] = useState({});
   const [questionNum, setQuestionNum] = useState(0);
-  const [details, setDetails] = useState({});
+  // const [details, setDetails] = useState({});
   const [score, setScore] = useState(0);
   const [clickedPlay, setPlay] = useState(false);
-  const [leaders, setLeaders] = useState(
-    Array(5).fill({ username: null, score: null })
-  );
+  const [leaders, setLeaders] = useState(null);
 
-  const [user, setUser] = useContext(UserContext);
+  const [user, setUser] = useContext(UserContext).userValue;
 
   const reset = () => {
-    setCategory(null);
+    // setCategory(null);
     setScore(0);
     setQuestion({});
     setQuestionNum(0);
@@ -35,20 +33,17 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log("leaders use effect");
     const fetchLeaders = async () => {
       console.log("fetchLeaders fired!");
       const res = await fetch("/secret/scores");
-      console.log(res, "res from fL");
       const data = await res.json();
-      console.log(data, "data from leaderboard");
       data.sort((a, b) => b.score - a.score);
       if (data.length !== 5) {
         while (data.length < 6) {
           data.push([{ username: null, score: null }]);
         }
       }
-      setLeaders(data);
+      setLeaders(data.slice(0, 5));
     };
     fetchLeaders();
   }, []);
@@ -87,7 +82,9 @@ const App = () => {
             ) : (
               <>
                 <li>
-                  <h3 id="nav-user-display">{user}</h3>
+                  <h3 id="nav-user-display" aria-label={user}>
+                    {user[0]}
+                  </h3>
                 </li>
                 <li>
                   <Link to="/logout">Logout</Link>

@@ -1,5 +1,4 @@
 import Models from "../models/triviaModels.js";
-import Auth from "../auth.js";
 
 const triviaController = {};
 
@@ -19,7 +18,7 @@ triviaController.verifyUser = async (req, res, next) => {
     }
   } catch (err) {
     res.status(500);
-    return next(err);
+    return next({ error: err });
   }
 };
 
@@ -27,10 +26,10 @@ triviaController.verifyUser = async (req, res, next) => {
 triviaController.createUser = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    
+
     const foundUser = await Models.User.findOne({ username, password });
     if (foundUser) {
-      return next({error: 'User already exists'});
+      return next({ error: "User already exists" });
     }
     if (username && password) {
       const createdUser = await Models.User.create({ username, password });
@@ -41,7 +40,7 @@ triviaController.createUser = async (req, res, next) => {
       return next({ error: "Missing username/password" });
     }
   } catch (err) {
-    return next(err);
+    return next({ error: err });
   }
 };
 
@@ -81,15 +80,16 @@ triviaController.addScore = async (req, res, next) => {
 
     if (score !== null && score !== undefined) {
       if (!username) {
-        Models.Score.create({ username: "Guest", score });
+        await Models.Score.create({ username: "Guest", score });
+        return next();
       }
-      Models.Score.create({ username, score });
+      await Models.Score.create({ username, score });
       return next();
     } else {
-      res.redirect("/play");
+      return next({ error: "No score to send" });
     }
   } catch (err) {
-    return next(err);
+    return next({ error: err });
   }
 };
 

@@ -3,7 +3,7 @@ import { UserContext } from "../UserContext";
 
 const Logout = () => {
   const [prevUser, setPrev] = useState(null);
-  const [user, setUser] = useContext(UserContext);
+  const [user, setUser] = useContext(UserContext).userValue;
 
   useEffect(() => {
     setPrev(user);

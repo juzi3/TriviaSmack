@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 const Signup = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(null);
+  const [_, setSuccess] = useContext(UserContext).signupValue;
 
   const navigate = useNavigate();
 
@@ -20,6 +22,7 @@ const Signup = () => {
     console.log(data);
 
     if (data.username) {
+      setSuccess(true);
       navigate("/login");
       console.log(username, "after signup");
     }

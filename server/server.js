@@ -5,7 +5,6 @@ import { connect } from "mongoose";
 
 const app = express();
 
-// import playRouter from "./routes/api";
 import userRouter from "./routes/user.js";
 import Trivia from "./controllers/triviaController.js";
 import CookieSession from "./controllers/cookieSessionController.js";
@@ -38,24 +37,12 @@ const logger = (req, res, next) => {
   next();
 };
 
-// app.use(logger);
-
-// route handlers
-// takes u to play
-// app.use('/play', playRouter);
-// access questions, users, scores
 app.use("/secret", userRouter);
 
 // handle signup
-app.post(
-  "/api/signup",
-  Trivia.createUser,
-  CookieSession.setCookie,
-  CookieSession.startSession,
-  (req, res) => {
-    res.status(200).json({ username: res.locals.user });
-  }
-);
+app.post("/api/signup", Trivia.createUser, (req, res) => {
+  res.status(200).json({ username: res.locals.user });
+});
 
 // handle login
 app.post(
@@ -64,17 +51,15 @@ app.post(
   CookieSession.setCookie,
   CookieSession.startSession,
   (req, res) => {
-    console.log("in server /login", res.locals);
     res.status(200).json({ username: res.locals.user.username });
   }
 );
 
 app.post("/api/leaderboard", Trivia.addScore, (req, res) => {
-  res.status(200).json("Score added");
+  res.status(200).json({ message: "Score added" });
 });
 
 app.use("/", (req, res) => {
-  console.log("served index.html");
   return res
     .status(200)
     .sendFile(resolve(__dirname, "../client/dist/index.html"));
