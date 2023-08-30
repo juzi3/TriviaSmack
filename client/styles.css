@@ -78,8 +78,6 @@ h2:not(#question-heading, #play-again > div > h2):hover {
 }
 
 #right-nav > li:hover > a {
-  /* background-color: var(--secondary-light-color);
-  color: var(--primary-color); */
   opacity: 0.75;
   transform: scale(1.1);
 }
@@ -529,20 +527,22 @@ span > a {
 span > a:hover {
   background-color: var(--primary-color);
 }
-/* 
-@media (min-width: 390px) {
+
+@media only screen and (max-width: 415px) {
   #home-page > div > a {
     width: 100px;
   }
 
   #left-nav,
   #right-nav {
-    width: 100px;
+    width: 125px;
     gap: 0.25rem;
+    justify-content: space-evenly;
   }
 
   #right-nav > li > a {
-    padding: 0.25rem 0 !important;
+    padding: 0.25rem !important;
+    font-size: 0.75rem;
   }
 
   #left-nav > li > a {
@@ -558,4 +558,41 @@ span > a:hover {
   #game-title {
     font-size: 1rem;
   }
-} */
+
+  .enter-heading {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  #play-section {
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  #play-section > *,
+  #in-game-container > *,
+  #leaderboard,
+  #home-page > h1,
+  #logout-container {
+    max-width: 300px;
+    min-width: 300px;
+  }
+
+  #home-page > h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  #question {
+    font-size: 0.75rem;
+  }
+
+  .answer {
+    max-width: 300px;
+    font-size: 0.75rem;
+  }
+
+  .leader-row {
+    font-size: 0.75rem;
+  }
+}
